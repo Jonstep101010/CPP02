@@ -12,11 +12,11 @@ public:
 	~Point();
 	float getX() const;
 	float getY() const;
+	void  printPoint(std::string prefix) const;
 
 private:
 	const Fixed x;
 	const Fixed y;
-	//...
 };
 
 bool bsp(Point const a, Point const b, Point const c,
