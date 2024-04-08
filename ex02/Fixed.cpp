@@ -2,12 +2,16 @@
 #include <cmath> // for roundf
 #include <iostream>
 
+/* -------------------------------------------------------------------------- */
+/*                          constructors/destructors                          */
+/* -------------------------------------------------------------------------- */
+
 /**
  * @brief default constructor
  */
 Fixed::Fixed()
 	: _value(0) {
-	std::cout << "Default constructor called\n";
+	// std::cout << "Default constructor called\n";
 }
 
 /**
@@ -15,7 +19,7 @@ Fixed::Fixed()
  */
 Fixed::Fixed(const Fixed& src)
 	: _value(src.getRawBits()) {// is not necessary
-	std::cout << "Copy constructor called\n";
+	// std::cout << "Copy constructor called\n";
 	*this = src;
 }
 
@@ -25,7 +29,7 @@ Fixed::Fixed(const Fixed& src)
  */
 Fixed::Fixed(int const raw)
 	: _value(raw << _fractionalBits) {
-	std::cout << "Int constructor called\n";
+	// std::cout << "Int constructor called\n";
 }
 
 /**
@@ -36,10 +40,10 @@ Fixed::Fixed(int const raw)
 Fixed::Fixed(float const raw)
 	: _value(
 		static_cast<int>(roundf(raw * (1 << _fractionalBits)))) {
-	std::cout << "Float constructor called\n";
+	// std::cout << "Float constructor called\n";
 }
 
-Fixed::~Fixed() { std::cout << "Destructor called\n"; }
+Fixed::~Fixed() {}
 
 /**
  * @brief copy assignment operator
@@ -48,12 +52,15 @@ Fixed::~Fixed() { std::cout << "Destructor called\n"; }
  * @return Fixed&
  */
 Fixed& Fixed::operator=(Fixed const& rhs) {
-	std::cout << "Copy assignment operator called\n";
+	// std::cout << "Copy assignment operator called\n";
 	if (this != &rhs) {
 		_value = rhs.getRawBits();
 	}
 	return *this;
 }
+
+
+/* ---------------------------- getter and setter --------------------------- */
 
 /**
  * @return int _value
@@ -88,11 +95,13 @@ std::ostream& operator<<(std::ostream& o, Fixed const& i) {
 
 /* ------------------------------- comparisons ------------------------------ */
 
-bool Fixed::operator>(Fixed const& b) {
+
+// const to avoid issues when used in const member functions
+bool Fixed::operator>(Fixed const& b) const {
 	return (this->getRawBits() > b.getRawBits());
 }
 
-bool Fixed::operator<(Fixed const& b) {
+bool Fixed::operator<(Fixed const& b) const {
 	return (this->getRawBits() < b.getRawBits());
 }
 
@@ -137,8 +146,27 @@ Fixed Fixed::operator/(Fixed const& b) {
 // e.g. ++0 -> 0.00390625, ...
 
 Fixed& Fixed::operator++() {
-	_value++;
-	return *this;
+	++_value;
+	return (*this);
+}
+
+Fixed Fixed::operator++(int) {
+	Fixed copy(*this);
+
+	++(*this);
+	return (copy);
+}
+
+Fixed& Fixed::operator--() {
+	--_value;
+	return (*this);
+}
+
+Fixed Fixed::operator--(int) {
+	Fixed copy(*this);
+
+	--(*this);
+	return (copy);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -159,4 +187,30 @@ float Fixed::toFloat() const {
  */
 int Fixed::toInt() const {
 	return ((_value >> _fractionalBits));
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             overloaded members                             */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * @param a reference to Fixed object
+ * @param b reference to Fixed object
+ * @return Fixed& reference to smaller object
+ */
+Fixed& Fixed::min(Fixed& a, Fixed& b) { return (a < b ? a : b); }
+
+Fixed& Fixed::max(Fixed& a, Fixed& b) { return (a > b ? a : b); }
+
+/**
+ * @param a reference to constant Fixed object
+ * @param b reference to constant Fixed object 
+ * @return Fixed& reference to smaller object
+ */
+const Fixed& Fixed::min(Fixed const& a, Fixed const& b) {
+	return (a < b ? a : b);
+}
+
+const Fixed& Fixed::max(Fixed const& a, Fixed const& b) {
+	return (a > b ? a : b);
 }
