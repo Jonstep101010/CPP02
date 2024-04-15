@@ -4,15 +4,16 @@ SRC = Fixed.cpp main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
+CC	= c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	clang++ $(FLAGS) $(SRC) -o $(NAME)
+	$(CC) $(FLAGS) $(SRC) -o $(NAME)
 
 %.o: %.cpp
-	clang++ $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
