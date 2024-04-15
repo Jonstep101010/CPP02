@@ -1,6 +1,6 @@
 #pragma once
 
-# include <iostream>
+#include <iostream>
 
 class Fixed {
 public:
@@ -25,10 +25,10 @@ public:
 	bool operator!=(Fixed const& b);
 
 	// arithmetic
-	Fixed operator+(Fixed const &b);
-	Fixed operator-(Fixed const &b);
-	Fixed operator*(Fixed const &b);
-	Fixed operator/(Fixed const &b);
+	Fixed operator+(Fixed const& b);
+	Fixed operator-(Fixed const& b);
+	Fixed operator*(Fixed const& b);
+	Fixed operator/(Fixed const& b);
 
 	// increment/decrement
 	Fixed& operator++();
@@ -37,9 +37,9 @@ public:
 	Fixed  operator--(int);
 
 	// overloaded static members
-	static Fixed& min(Fixed& a, Fixed& b);
+	static Fixed&       min(Fixed& a, Fixed& b);
 	static const Fixed& min(Fixed const& a, Fixed const& b);
-	static Fixed& max(Fixed& a, Fixed& b);
+	static Fixed&       max(Fixed& a, Fixed& b);
 	static const Fixed& max(Fixed const& a, Fixed const& b);
 
 private:

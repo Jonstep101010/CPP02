@@ -18,7 +18,7 @@ Fixed::Fixed()
  * @brief copy constructor
  */
 Fixed::Fixed(const Fixed& src)
-	: _value(src.getRawBits()) {// is not necessary
+	: _value(src.getRawBits()) { // is not necessary
 	// std::cout << "Copy constructor called\n";
 	*this = src;
 }
@@ -59,7 +59,6 @@ Fixed& Fixed::operator=(Fixed const& rhs) {
 	return *this;
 }
 
-
 /* ---------------------------- getter and setter --------------------------- */
 
 /**
@@ -94,7 +93,6 @@ std::ostream& operator<<(std::ostream& o, Fixed const& i) {
 }
 
 /* ------------------------------- comparisons ------------------------------ */
-
 
 // const to avoid issues when used in const member functions
 bool Fixed::operator>(Fixed const& b) const {
