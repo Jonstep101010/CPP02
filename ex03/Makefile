@@ -4,15 +4,16 @@ SRC = Fixed.cpp Point.cpp bsp.cpp main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-FLAGS = -Wall -Wextra -Werror -std=c++98
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	clang++ $(FLAGS) $(SRC) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(NAME)
 
 %.o: %.cpp
-	clang++ $(FLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
