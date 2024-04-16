@@ -14,7 +14,7 @@ Fixed::Fixed()
  * @brief copy constructor
  */
 Fixed::Fixed(const Fixed& src)
-	: _value(src.getRawBits()) { // is not necessary
+	: _value(src.getRawBits()) {
 	std::cout << "Copy constructor called\n";
 	*this = src;
 }
